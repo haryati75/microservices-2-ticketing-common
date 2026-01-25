@@ -2,12 +2,15 @@ name: Publish Package
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'package.json'
 
 permissions:
-  id-token: write # Required for OIDC
-  contents: read
+  id-token: write
+  contents: write
 
 jobs:
   publish:
@@ -19,7 +22,20 @@ jobs:
         with:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - run: npm ci
+      - run: npm version patch --no-git-tag-version
       - run: npm run build --if-present
       - run: npm test --if-present
-      - run: npm publish
+      - run: npm publish --provenance --access public
+
+      - name: Commit version bump
+        run: |
+          git add package.json
+          git commit -m "chore: bump version [skip ci]"
+          git push
