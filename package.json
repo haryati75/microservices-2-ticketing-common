@@ -12,6 +12,10 @@
     "clean": "del build",
     "build": "npm run clean && tsc"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haryati75/microservices-2-ticketing-common.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
