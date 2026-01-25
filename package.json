@@ -10,8 +10,7 @@
   ],
   "scripts": {
     "clean": "del build",
-    "build": "npm run clean && tsc",
-    "pub": "git add . && git commit -m 'Updates' && npm version patch --no-git-tag-version && npm run build && npm publish"
+    "build": "npm run clean && tsc"
   },
   "keywords": [],
   "author": "",
