@@ -14,7 +14,7 @@ export const errorHandler = (
     });
   }
 
-  console.error('🥦 Unknown Error: ', err);
+  console.error('⛈️🥦 Unknown Error: ', err);
   res.status(500).send({
     errors: [{ message: 'Something went wrong 🥕' }],
   });
