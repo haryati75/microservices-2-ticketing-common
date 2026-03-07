@@ -11,7 +11,7 @@ export abstract class Listener<T extends Event> {
   abstract subject: T['subject'];
   abstract queueGroupName: string;
 
-  abstract onMessage(data: T['data'], msg: Message): void;
+  abstract onMessage(data: T['data'], msg: Message): void | Promise<void>;
   private client: Stan;
   protected ackWait = 5 * 1000; // default acknowledgment wait time of 5 seconds
 
@@ -40,7 +40,9 @@ export abstract class Listener<T extends Event> {
         `Message received: ${this.subject} / ${this.queueGroupName} - #${String(msg.getSequence())}`,
       );
       const parsedData = this.parseMessage(msg);
-      this.onMessage(parsedData, msg);
+      Promise.resolve(this.onMessage(parsedData, msg)).catch((err: unknown) => {
+        console.error('Error processing message', err);
+      });
     });
   }
 
