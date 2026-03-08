@@ -12,7 +12,7 @@ export abstract class Listener<T extends Event> {
   abstract queueGroupName: string;
 
   abstract onMessage(data: T['data'], msg: Message): void | Promise<void>;
-  private client: Stan;
+  protected client: Stan;
   protected ackWait = 5 * 1000; // default acknowledgment wait time of 5 seconds
 
   constructor(client: Stan) {
