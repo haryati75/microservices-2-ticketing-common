@@ -37,7 +37,7 @@ export abstract class Listener<T extends Event> {
 
     subscription.on('message', (msg: Message) => {
       console.log(
-        `Message received: ${this.subject} / ${this.queueGroupName} - #${String(msg.getSequence())}`,
+        `🍍 Message received: ${this.subject} / ${this.queueGroupName} - #${String(msg.getSequence())}`,
       );
       const parsedData = this.parseMessage(msg);
       Promise.resolve(this.onMessage(parsedData, msg)).catch((err: unknown) => {
